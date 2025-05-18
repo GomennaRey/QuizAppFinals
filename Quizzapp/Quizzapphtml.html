@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Quiz App Login</title>
+  <link rel="stylesheet" href = "Quizapp.css"
+</head>
+<body>
+
+<div class="container" id="login-box">
+  <h2>Login</h2>
+  <input type="text" id="username" placeholder="Username" required>
+  <input type="password" id="password" placeholder="Password" required>
+  <button onclick="login()">Login</button>
+  <p id="error" style="color: red;"></p>
+</div>
+
+<div class="container hidden" id="quiz-selection">
+  <h2>Select Quiz Category</h2>
+  <label for="category">Choose a quiz category:</label>
+  <select id="category">
+    <option value="subjen">English</option>
+    <option value="subjsc">Science</option>
+    <option value="subjfi">Filipino</option>
+    <option value="subjma">Mathematics</option>
+    <option value="web">Web Development</option>
+  </select>
+  <button onclick="startQuiz()">Start Quiz</button>
+</div>
+
+<div class="container hidden" id="quiz-box">
+  <h2>Quiz Time</h2>
+  <div class="question" id="question"></div>
+  <div id="options"></div>
+  <button id="nextBtn" onclick="nextQuestion()">Next</button>
+  <p id="score"></p>
+</div>
+
+<script src="Quizapp.js"></script>
+<script src="Quizapp2.js"></script>
+<script src="Quizapp3.js"></script>
+
+
+</body>
+</html>
+
