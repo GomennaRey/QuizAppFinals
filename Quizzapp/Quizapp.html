@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Quiz App Login</title>
-  <link rel="stylesheet" href = "Quizapp.css"
+  <title>Quiz App</title>
+  <link rel="stylesheet" href = "Quizapp.css">
 </head>
 <body>
 
@@ -13,6 +13,20 @@
   <input type="password" id="password" placeholder="Password" required>
   <button onclick="login()">Login</button>
   <p id="error" style="color: red;"></p>
+  <p>
+    <a href="#" onclick="showRegister()">Create new account</a>
+  </p>
+</div>
+
+<div class="container hidden" id="register-box">
+  <h2>Register</h2>
+  <input type="text" id="reg-username" placeholder="Username" required>
+  <input type="password" id="reg-password" placeholder="Password" required>
+  <button onclick="register()">Register</button>
+  <p id="reg-error" style="color: red;"></p>
+  <p>
+    <a href="#" onclick="showLogin()">Back to Login</a>
+  </p>
 </div>
 
 <div class="container hidden" id="quiz-selection">
@@ -36,11 +50,10 @@
   <p id="score"></p>
 </div>
 
-<script src="Quizapp.js"></script>
-<script src="Quizapp2.js"></script>
-<script src="Quizapp3.js"></script>
+<script src="QuizappFunction.js"></script>
+<script src="QuizappQuestions.js"></script>
+<script src="QuizappLogin.js"></script>
 
 
 </body>
 </html>
-
