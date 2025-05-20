@@ -15,9 +15,9 @@ const credentials = [
     const found = credentials.find(cred => cred.username === user && cred.password === pass);
   
     if (found) {
-      alert("Welcome To Our Quiz")
       document.getElementById("login-box").classList.add("hidden");
       document.getElementById("quiz-selection").classList.remove("hidden");
+      alert("WELCOME TO THE QUIZ APP!");
       loadQuestion();
     } else {
       error.textContent = "Invalid login.";
