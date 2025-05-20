@@ -27,18 +27,42 @@ function loadQuestion() {
     optionsDiv.appendChild(btn);
   });
 
-  document.getElementById("score").textContent = "";
+  document.getElementById("feedback").style.display = "none";
+  document.getElementById("feedback").textContent = "";
+  document.getElementById("score").style.display = "none";
 }
 
 function checkAnswer(selected) {
-  if (selected === selectedQuiz[current].answer) {
+  const correctAnswer = selectedQuiz[current].answer;
+  const buttons = document.querySelectorAll("#options button");
+
+  let resultMessage = "";
+
+  buttons.forEach(btn => {
+    btn.disabled = true;
+
+    if (btn.textContent === correctAnswer) {
+      btn.style.backgroundColor = "green";
+      btn.style.color = "white";
+    }
+
+    if (btn.textContent === selected && selected !== correctAnswer) {
+      btn.style.backgroundColor = "red";
+      btn.style.color = "white";
+    }
+  });
+
+  if (selected === correctAnswer) {
     score++;
+    resultMessage = "✅ Correct Answer!";
+  } else {
+    resultMessage = "❌ Incorrect Answer!";
   }
 
-  const buttons = document.querySelectorAll("#options button");
-  buttons.forEach(btn => btn.disabled = true);
-
-  document.getElementById("score").textContent = `Score: ${score}/${selectedQuiz.length}`;
+  // Show only feedback (not score yet)
+  const feedback = document.getElementById("feedback");
+  feedback.innerHTML = resultMessage;
+  feedback.style.display = "block";
 }
 
 function nextQuestion() {
@@ -49,12 +73,13 @@ function nextQuestion() {
     showFinalScore();
   }
 }
+
 function showFinalScore() {
   document.getElementById("question").textContent = "Quiz Finished!";
-  document.getElementById("options").innerHTML =`
-  <button onclick="retakeQuiz()">Retake Quiz</button>
-  <button onclick="returnToCategory()">Return to Category Selection</button>`;
-  
+  document.getElementById("options").innerHTML = `
+    <button onclick="retakeQuiz()">Retake Quiz</button>
+    <button onclick="returnToCategory()">Return to Category Selection</button>
+  `;
 
   let message = "";
   const percentage = (score / selectedQuiz.length) * 100;
@@ -69,18 +94,29 @@ function showFinalScore() {
     message = "💪 Don't give up! Review and try again!";
   }
 
-  document.getElementById("score").innerHTML = `
+  const scoreDiv = document.getElementById("score");
+  scoreDiv.style.display = "block";
+  scoreDiv.innerHTML = `
     <strong>Final Score: ${score}/${selectedQuiz.length}</strong><br>${message}
   `;
+
+  document.getElementById("feedback").style.display = "none";
   document.getElementById("nextBtn").style.display = "none";
 }
-function retakeQuiz(){
+
+function retakeQuiz() {
   current = 0;
   score = 0;
 
   document.getElementById("nextBtn").style.display = "inline-block";
+  document.getElementById("feedback").style.display = "none";
+  document.getElementById("feedback").textContent = "";
+  document.getElementById("score").style.display = "none";
+  document.getElementById("score").textContent = "";
+
   loadQuestion();
 }
+
 function returnToCategory() {
   document.getElementById("quiz-selection").classList.remove("hidden");
   document.getElementById("quiz-box").classList.add("hidden");
@@ -88,6 +124,9 @@ function returnToCategory() {
   document.getElementById("question").textContent = "";
   document.getElementById("options").innerHTML = "";
   document.getElementById("score").textContent = "";
+  document.getElementById("score").style.display = "none";
+  document.getElementById("feedback").style.display = "none";
+  document.getElementById("feedback").textContent = "";
 
   document.getElementById("nextBtn").style.display = "inline-block";
 
