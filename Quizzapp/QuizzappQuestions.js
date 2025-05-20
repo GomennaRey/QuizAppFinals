@@ -29,7 +29,7 @@ const quizData = {
   web: [
     {
       question: "What does HTML stand for?",
-      options: ["Hyper Text Markup Language", "HighText Machine Language", "Hyperlink and Text Markup Language", "How to make Lumpia"],
+      options: ["Hyper Text Markup Language", "HighText Machine Language", "Hyperlink and Text Markup Language", "How To Make Lumpia"],
       answer: "Hyper Text Markup Language"
     },
     {
