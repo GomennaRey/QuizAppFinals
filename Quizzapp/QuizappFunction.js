@@ -6,12 +6,13 @@ function startQuiz() {
   const category = document.getElementById("category").value;
   selectedQuiz = quizData[category];
 
-  document.getElementById("quiz-selection").classList.add("hidden");
-  document.getElementById("quiz-box").classList.remove("hidden");
-
   current = 0;
   score = 0;
+
+  document.getElementById("quiz-selection").classList.add("hidden");
+  document.getElementById("quiz-box").classList.remove("hidden");
   loadQuestion();
+
 }
 
 function loadQuestion() {
@@ -30,6 +31,8 @@ function loadQuestion() {
   document.getElementById("feedback").style.display = "none";
   document.getElementById("feedback").textContent = "";
   document.getElementById("score").style.display = "none";
+  document.getElementById("quitCategoryBtn").style.display = "none";
+  document.getElementById("quitLoginBtn").style.display = "none";
 }
 
 function checkAnswer(selected) {
@@ -59,7 +62,6 @@ function checkAnswer(selected) {
     resultMessage = "❌ Incorrect Answer!";
   }
 
-  // Show only feedback (not score yet)
   const feedback = document.getElementById("feedback");
   feedback.innerHTML = resultMessage;
   feedback.style.display = "block";
@@ -81,6 +83,19 @@ function showFinalScore() {
     <button onclick="returnToCategory()">Return to Category Selection</button>
   `;
 
+  const scoreDiv = document.getElementById("score");
+  scoreDiv.style.display = "block";
+  scoreDiv.innerHTML = `
+    <strong>Final Score: ${score}/${selectedQuiz.length}</strong><br>${message}
+  `;
+
+  document.getElementById("feedback").style.display = "none";
+  document.getElementById("nextBtn").style.display = "none";
+  document.getElementById("quitCategoryBtn").style.display = "none";
+  document.getElementById("returnLoginBtn").style.display = "inline-block";
+}
+
+
   let message = "";
   const percentage = (score / selectedQuiz.length) * 100;
 
@@ -93,17 +108,6 @@ function showFinalScore() {
   } else {
     message = "💪 Don't give up! Review and try again!";
   }
-
-  const scoreDiv = document.getElementById("score");
-  scoreDiv.style.display = "block";
-  scoreDiv.innerHTML = `
-    <strong>Final Score: ${score}/${selectedQuiz.length}</strong><br>${message}
-  `;
-
-  document.getElementById("feedback").style.display = "none";
-  document.getElementById("nextBtn").style.display = "none";
-}
-
 function retakeQuiz() {
   current = 0;
   score = 0;
@@ -134,3 +138,34 @@ function returnToCategory() {
   current = 0;
   score = 0;
 }
+
+function quitQuiz(toLogin = false) {
+  const confirmQuit = confirm("Are you sure you want to quit the quiz?");
+  if (confirmQuit) {
+    if (toLogin) {
+      returnToLogin();
+    } else {
+      returnToCategory();
+    }
+  }
+}
+
+  function returnToLogin() {
+    document.getElementById("quiz-box").classList.add("hidden");
+    document.getElementById("quiz-selection").classList.add("hidden");
+    document.getElementById("register-box").classList.add("hidden");
+  
+    document.getElementById("login-box").classList.remove("hidden");
+  
+    document.getElementById("question").textContent = "";
+    document.getElementById("options").innerHTML = "";
+    document.getElementById("feedback").style.display = "none";
+    document.getElementById("score").style.display = "none";
+    document.getElementById("nextBtn").style.display = "inline-block";
+  
+    selectedQuiz = [];
+    current = 0;
+    score = 0;
+  }
+  
+
